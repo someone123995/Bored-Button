@@ -34,6 +34,9 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease-in-out;
+            position: absolute;
+            top: 20px;
+            right: 20px;
         }
 
         button:hover {
@@ -41,8 +44,8 @@
         }
 
         iframe {
-            width: 90%;
-            height: 80vh;
+            width: 95%;
+            height: 85vh;
             border: 3px solid white;
             border-radius: 10px;
             margin-top: 20px;
@@ -53,7 +56,7 @@
 
     <h1>😴 Feeling Bored? 🚀</h1>
     <button onclick="openRandomSite()">Take Me Somewhere Cool!</button>
-    <iframe id="websiteFrame" src="https://neal.fun/" allowfullscreen onload="checkBlankPage()"></iframe>
+    <iframe id="websiteFrame" src="https://neal.fun/" allowfullscreen></iframe>
 
     <script>
         const websites = [
@@ -79,13 +82,10 @@
 
         function openRandomSite() {
             const randomIndex = Math.floor(Math.random() * websites.length);
-            document.getElementById("websiteFrame").src = websites[randomIndex];
-        }
-
-        function checkBlankPage() {
             const iframe = document.getElementById("websiteFrame");
+            iframe.src = websites[randomIndex];
             setTimeout(() => {
-                if (!iframe.contentWindow.document.body.innerHTML.trim()) {
+                if (iframe.contentDocument && iframe.contentDocument.body.innerHTML.trim() === "") {
                     openRandomSite();
                 }
             }, 100);
