@@ -24,9 +24,6 @@
         }
 
         button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
             background: linear-gradient(135deg, #1e3c72, #2a5298);
             color: white;
             font-size: 1.5em;
@@ -44,8 +41,8 @@
         }
 
         iframe {
-            width: 95%;
-            height: 85vh;
+            width: 90%;
+            height: 80vh;
             border: 3px solid white;
             border-radius: 10px;
             margin-top: 20px;
@@ -81,12 +78,24 @@
         ];
 
         function openRandomSite() {
-            const randomIndex = Math.floor(Math.random() * websites.length);
-            const randomSite = websites[randomIndex];
-            
-            fetch(randomSite, { method: 'HEAD', mode: 'no-cors' })
-                .then(() => document.getElementById("websiteFrame").src = randomSite)
-                .catch(() => window.open(randomSite, "_blank"));
+            let maxAttempts = 10;
+            let attempt = 0;
+            function tryLoad() {
+                if (attempt >= maxAttempts) {
+                    window.open(websites[Math.floor(Math.random() * websites.length)], "_blank");
+                    return;
+                }
+                const randomIndex = Math.floor(Math.random() * websites.length);
+                const frame = document.getElementById("websiteFrame");
+                frame.src = websites[randomIndex];
+                setTimeout(() => {
+                    if (!frame.contentWindow || frame.contentWindow.length === 0) {
+                        attempt++;
+                        tryLoad();
+                    }
+                }, 2000);
+            }
+            tryLoad();
         }
     </script>
 
