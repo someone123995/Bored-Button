@@ -8,7 +8,7 @@
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
-            background: black;
+            background: radial-gradient(circle at center, #001f3f, #000000);
             color: white;
             display: flex;
             flex-direction: column;
@@ -16,34 +16,96 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            overflow: hidden;
+            transition: background 0.5s;
         }
-        h1 { font-size: 2em; margin-bottom: 10px; }
-        button {
-            font-size: 1.5em;
-            padding: 10px 20px;
-            cursor: pointer;
-            border: none;
-            background: #ff00ff;
-            color: white;
-            border-radius: 10px;
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        #notice {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #ffcc00;
+            font-weight: bold;
+            animation: flicker 1.5s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin-bottom: 20px;
         }
+
+        button {
+            background: linear-gradient(135deg, #ff00ff, #00ffff);
+            color: white;
+            font-size: 1.8em;
+            font-weight: bold;
+            border: none;
+            padding: 20px 40px;
+            cursor: pointer;
+            border-radius: 50px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 1);
+        }
+
         iframe {
             width: 90%;
             height: 70vh;
             border: none;
-            border-radius: 10px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
             background: white;
+            margin-top: 20px;
         }
+
+        .settings {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .hidden { display: none; }
     </style>
 </head>
 <body>
-    <h1>🔘 Bored? Click Here! 🔘</h1>
-    <button onclick="openRandomSite()">Take Me Somewhere Cool!</button>
-    <iframe id="websiteFrame"></iframe>
+    <div class="settings">
+        <label>Theme: </label>
+        <select id="themeSelector" onchange="changeTheme()">
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+            <option value="blue">Blue</option>
+        </select>
+    </div>
+
+    <h1>🚀 The Ultimate Bored Button! 🎮</h1>
+    <p id="notice">⚠️ Click once & have fun! If a site doesn’t load, click again! ⚠️</p>
+    <div class="button-container">
+        <button onclick="openRandomSite()">Take Me Somewhere Cool!</button>
+    </div>
+    <iframe id="websiteFrame" allowfullscreen></iframe>
 
     <script>
-        let websites = [
+        const websites = [
             "https://neal.fun/", "https://thisissand.com/", "https://littlealchemy2.com/",
             "https://theuselessweb.com/", "https://asoftmurmur.com/", "http://weavesilk.com/",
             "https://quickdraw.withgoogle.com/", "https://skribbl.io/", "https://www.geoguessr.com/",
@@ -64,52 +126,30 @@
             "https://neal.fun/where-does-the-day-go/", "https://neal.fun/size-of-space/"
         ];
 
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
+        let preloadedSite = "";
 
-        function loadFromStorage() {
-            let storedList = JSON.parse(localStorage.getItem("shuffledWebsites"));
-            let storedIndex = parseInt(localStorage.getItem("websiteIndex"), 10);
-            
-            if (storedList && storedIndex >= 0 && storedList.length === websites.length) {
-                return { shuffledWebsites: storedList, index: storedIndex };
-            } else {
-                return null;
-            }
-        }
-
-        function saveToStorage() {
-            localStorage.setItem("shuffledWebsites", JSON.stringify(shuffledWebsites));
-            localStorage.setItem("websiteIndex", index.toString());
-        }
-
-        function resetList() {
-            shuffledWebsites = [...websites];
-            shuffleArray(shuffledWebsites);
-            index = 0;
-            saveToStorage();
-        }
-
-        let storedData = loadFromStorage();
-        let shuffledWebsites = storedData ? storedData.shuffledWebsites : [];
-        let index = storedData ? storedData.index : 0;
-
-        if (shuffledWebsites.length === 0) {
-            resetList();
+        function preloadRandomSite() {
+            preloadedSite = websites[Math.floor(Math.random() * websites.length)];
+            const iframe = document.createElement("iframe");
+            iframe.style.display = "none";
+            iframe.src = preloadedSite;
+            document.body.appendChild(iframe);
         }
 
         function openRandomSite() {
-            if (index >= shuffledWebsites.length) {
-                resetList();
-            }
-            document.getElementById("websiteFrame").src = shuffledWebsites[index];
-            index++;
-            saveToStorage();
+            document.getElementById("websiteFrame").src = preloadedSite;
+            preloadRandomSite(); // Load the next site in advance
         }
+
+        function changeTheme() {
+            let theme = document.getElementById("themeSelector").value;
+            if (theme === "light") document.body.style.background = "#f5f5f5";
+            else if (theme === "blue") document.body.style.background = "#001f3f";
+            else document.body.style.background = "black";
+        }
+
+        // Preload first site on page load
+        preloadRandomSite();
     </script>
 </body>
 </html>
