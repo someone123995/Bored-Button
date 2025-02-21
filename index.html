@@ -1,76 +1,57 @@
-<script>
-    function openRandomSite() {
-        var sites = [
-            "https://neal.fun/",  
-            "https://theuselessweb.com/",  
-            "https://www.window-swap.com/",  
-            "https://thisissand.com/",  
-            "https://play2048.co/",  
-            "https://quickdraw.withgoogle.com/",  
-            "https://radio.garden/",  
-            "https://www.typingclub.com/",  
-            "https://stellarium-web.org/",  
-            "https://pointerpointer.com/",
-            "https://www.trypap.com/",
-            "https://www.koalastothemax.com/",
-            "https://zoomquilt.org/",
-            "https://asoftmurmur.com/",
-            "https://hackertyper.com/",
-            "https://dinosaurpictures.org/ancient-earth#0",
-            "https://www.sporcle.com/",
-            "https://orteil.dashnet.org/cookieclicker/",
-            "https://www.sandspiel.club/",
-            "https://c.xkcd.com/random/comic/",
-            "https://findtheinvisiblecow.com/",
-            "https://cat-bounce.com/",
-            "https://weavesilk.com/",
-            "https://www.boredbutton.com/",
-            "https://papertoilet.com/",
-            "https://www.linerider.com/",
-            "https://littlealchemy.com/",
-            "https://www.playphrase.me/",
-            "https://emojihub.yurace.pro/random",
-            "https://www.typingtest.com/",
-            "https://puginarug.com/",
-            "https://www.nytimes.com/games/wordle/index.html",
-            "https://neal.fun/infinite-craft/",
-            "https://www.howmanypeopleareinspacerightnow.com/",
-            "https://www.drawastickman.com/",
-            "https://stars.chromeexperiments.com/",
-            "https://thedeepsea.guide/",
-            "https://neal.fun/deep-sea/",
-            "https://neal.fun/password-game/",
-            "https://neal.fun/absurd-trolley-problems/",
-            "https://patatap.com/",
-            "https://jellymar.io/",
-            "https://mondrimat.com/",
-            "https://optical.toys/",
-            "https://clickclickclick.click/",
-            "https://sortthecourt.com/",
-            "https://doodlecricket.github.io/",
-            "https://sandgame.com/",
-            "https://corgiorgy.com/",
-            "https://pointerpointer.com/",
-            "https://www.lovecalculator.com/",
-            "https://whereisroadster.com/",
-            "https://slither.io/",
-            "https://agar.io/",
-            "https://diep.io/",
-            "https://www.geoguessr.com/",
-            "https://neal.fun/spend/",
-            "https://cursors.io/",
-            "https://lavafloor.com/",
-            "https://omfgdogs.com/",
-            "https://www.windows93.net/",
-            "https://www.rainymood.com/",
-            "https://www.reddit.com/r/oddlysatisfying/",
-            "https://neal.fun/space-elevator/",
-            "https://neal.fun/size-of-space/",
-            "https://radiooooo.com/",
-            "https://neal.fun/wonders-of-street-view/"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bored Button</title>
+</head>
+<body>
+    <button onclick="randomSite()">I'm Bored</button>
+
+    <script>
+        const websites = [
+            "https://www.bbc.com/news", "https://www.cnn.com", "https://www.nytimes.com", 
+            "https://www.theguardian.com", "https://www.aljazeera.com", "https://www.reuters.com", 
+            "https://www.npr.org", "https://www.wsj.com", "https://www.economist.com", "https://www.washingtonpost.com",
+            "https://techcrunch.com", "https://www.wired.com", "https://www.theverge.com", "https://www.cnet.com", 
+            "https://mashable.com", "https://www.engadget.com", "https://lifehacker.com", "https://gizmodo.com", 
+            "https://www.digitaltrends.com", "https://www.techradar.com",
+            "https://www.imdb.com", "https://www.rottentomatoes.com", "https://variety.com", 
+            "https://pitchfork.com", "https://www.rollingstone.com", "https://www.avclub.com",
+            "https://www.billboard.com", "https://www.vulture.com", "https://www.polygon.com",
+            "https://www.khanacademy.org", "https://www.ted.com", "https://www.coursera.org",
+            "https://www.udacity.com", "https://www.edx.org", "https://www.codecademy.com",
+            "https://brainly.com", "https://www.academicearth.org", "https://www.rosettastone.com",
+            "https://www.futurelearn.com",
+            "https://www.bonappetit.com", "https://www.travelandleisure.com", "https://www.thecut.com",
+            "https://food52.com", "https://www.architecturaldigest.com", "https://www.realsimple.com",
+            "https://www.elledecor.com", "https://www.goodhousekeeping.com", "https://www.inc.com",
+            "https://www.entrepreneur.com",
+            "https://www.webmd.com", "https://www.mayoclinic.org", "https://www.healthline.com",
+            "https://www.menshealth.com", "https://www.womenshealthmag.com", "https://www.psychologytoday.com",
+            "https://www.everydayhealth.com", "https://www.prevention.com", "https://www.verywellhealth.com",
+            "https://www.health.com",
+            "https://www.facebook.com", "https://twitter.com", "https://www.instagram.com",
+            "https://www.linkedin.com", "https://www.pinterest.com", "https://www.tiktok.com",
+            "https://www.youtube.com", "https://www.snapchat.com", "https://www.reddit.com",
+            "https://www.tumblr.com",
+            "https://www.amazon.com", "https://www.etsy.com", "https://www.target.com",
+            "https://www.walmart.com", "https://www.bestbuy.com", "https://www.zara.com",
+            "https://www.sephora.com", "https://www.nordstrom.com", "https://www.homedepot.com",
+            "https://www.rei.com",
+            "https://www.espn.com", "https://www.si.com", "https://bleacherreport.com",
+            "https://www.mlb.com", "https://www.nba.com", "https://www.nfl.com",
+            "https://www.nhl.com", "https://www.fifa.com", "https://www.pga.com",
+            "https://biblegateway.com", "https://www.desiringgod.org", "https://www.christianitytoday.com",
+            "https://www.relevantmagazine.com", "https://www.thegospelcoalition.org",
+            "https://odb.org", "https://www.crosswalk.com", "https://www.heartlight.org",
+            "https://www.biblestudytools.com", "https://bible.org"
         ];
 
-        var randomSite = sites[Math.floor(Math.random() * sites.length)];
-        window.open(randomSite, "_blank");
-    }
-</script>
+        function randomSite() {
+            const randomIndex = Math.floor(Math.random() * websites.length);
+            window.open(websites[randomIndex], "_blank");
+        }
+    </script>
+</body>
+</html>
