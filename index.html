@@ -105,7 +105,7 @@
     <iframe id="websiteFrame" allowfullscreen></iframe>
 
     <script>
-        const websites = [
+        let websites = [
             "https://neal.fun/", "https://thisissand.com/", "https://littlealchemy2.com/",
             "https://theuselessweb.com/", "https://asoftmurmur.com/", "http://weavesilk.com/",
             "https://quickdraw.withgoogle.com/", "https://skribbl.io/", "https://www.geoguessr.com/",
@@ -126,19 +126,28 @@
             "https://neal.fun/where-does-the-day-go/", "https://neal.fun/size-of-space/"
         ];
 
-        let preloadedSite = "";
+        let shuffledWebsites = [];
+        let index = 0;
 
-        function preloadRandomSite() {
-            preloadedSite = websites[Math.floor(Math.random() * websites.length)];
-            const iframe = document.createElement("iframe");
-            iframe.style.display = "none";
-            iframe.src = preloadedSite;
-            document.body.appendChild(iframe);
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function resetWebsiteList() {
+            shuffledWebsites = [...websites]; 
+            shuffleArray(shuffledWebsites);
+            index = 0;
         }
 
         function openRandomSite() {
-            document.getElementById("websiteFrame").src = preloadedSite;
-            preloadRandomSite(); // Load the next site in advance
+            if (index >= shuffledWebsites.length) {
+                resetWebsiteList();
+            }
+            document.getElementById("websiteFrame").src = shuffledWebsites[index];
+            index++;
         }
 
         function changeTheme() {
@@ -148,8 +157,8 @@
             else document.body.style.background = "black";
         }
 
-        // Preload first site on page load
-        preloadRandomSite();
+        // Initialize shuffled websites on load
+        resetWebsiteList();
     </script>
 </body>
 </html>
