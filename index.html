@@ -5,14 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bored Button</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
         body {
-            font-family: 'Press Start 2P', cursive;
+            font-family: 'Comic Sans MS', sans-serif;
             text-align: center;
-            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffdde1, #fec8c1);
-            background-size: 400% 400%;
-            animation: gradientBG 10s ease infinite;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -21,52 +17,30 @@
             margin: 0;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
         h1 {
-            font-size: 2.2em;
+            font-size: 2.5em;
             color: #fff;
-            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
         }
 
         button {
             background: linear-gradient(135deg, #ff758c, #ff7eb3);
             color: white;
-            font-size: 1.3em;
+            font-size: 1.5em;
             font-weight: bold;
             border: none;
-            padding: 20px 50px;
+            padding: 20px 40px;
             cursor: pointer;
             border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease-in-out;
-            position: relative;
-            overflow: hidden;
-        }
-
-        button::before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 300%;
-            height: 300%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 80%);
-            transition: all 0.4s ease-in-out;
-            transform: translate(-50%, -50%) scale(0);
-        }
-
-        button:hover::before {
-            transform: translate(-50%, -50%) scale(1);
+            animation: pulse 2s infinite;
+            margin-bottom: 20px;
         }
 
         button:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
         }
 
         @keyframes pulse {
@@ -74,12 +48,20 @@
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
+
+        iframe {
+            width: 80vw;
+            height: 70vh;
+            border: 5px solid white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 <body>
-
     <h1>😴 Feeling Bored? 🚀</h1>
     <button onclick="openRandomSite()">Take Me Somewhere Cool!</button>
+    <iframe id="siteFrame" src="" frameborder="0"></iframe>
 
     <script>
         const websites = [
@@ -98,24 +80,16 @@
             "https://www.eyebleach.me/", "https://www.supercook.com/", "https://neal.fun/absurd-trolley-problems/",
             "https://neal.fun/deep-sea/", "https://neal.fun/password-game/", "https://c.xkcd.com/random/comic/",
             "https://dinosaurgame.io/", "https://www.flightradar24.com/", "https://musiclab.chromeexperiments.com/",
-            "https://www.rainymood.com/", "https://drawception.com/", "https://stars.chromeexperiments.com/",
-            "https://stellarium-web.org/", "https://mynoise.net/", "https://volvocars.com/intl/own/explore/volvo-360c",
+            "https://www.rainymood.com/", "https://drawception.com/", "https://stellarium-web.org/",
+            "https://mynoise.net/", "https://volvocars.com/intl/own/explore/volvo-360c",
             "https://www.mentalfloss.com/", "https://neal.fun/wonders-of-street-view/", "https://www.milliondollarcoder.com/",
-            "https://neal.fun/internet-artifacts/", "https://www.boredpanda.com/", "https://pointerpointer.com/",
-            "https://www.drawastickman.com/", "https://supermarioplay.com/", "https://tetr.io/", 
-            "https://hex.frvr.com/", "http://radio.garden/", "https://www.earthcam.com/", 
-            "http://www.thesecretdoor.com/", "https://www.mapcrunch.com/", 
-            "https://driveandlisten.herokuapp.com/", "https://apod.nasa.gov/apod/astropix.html/", 
-            "https://www.zooniverse.org/", "https://en.akinator.com/", "https://www.geoguessr.com/free",
-            "http://weavesilk.com/", "https://asoftmurmur.com/", "https://pixelthoughts.co/", 
-            "http://seaquence.org/"
+            "https://neal.fun/internet-artifacts/"
         ];
 
         function openRandomSite() {
             const randomIndex = Math.floor(Math.random() * websites.length);
-            window.open(websites[randomIndex], "_blank");
+            document.getElementById("siteFrame").src = websites[randomIndex];
         }
     </script>
-
 </body>
 </html>
