@@ -6,56 +6,68 @@
     <title>Bored Button</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Comic Sans MS', sans-serif;
             text-align: center;
-            background: navy;
-            color: white;
+            background: linear-gradient(45deg, #001f3f, #005f9e);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            color: white;
         }
 
         h1 {
-            font-size: 2.5em;
+            font-size: 3em;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
         }
 
-        #randomFrame {
-            width: 90%;
+        #container {
+            position: relative;
+            width: 80vw;
             height: 80vh;
-            border: 3px solid white;
-            border-radius: 10px;
+            border: 5px solid white;
+            border-radius: 15px;
+            overflow: hidden;
             background: white;
         }
 
-        button {
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        #boredButton {
             position: absolute;
             top: 10px;
             right: 10px;
-            background: dodgerblue;
+            background: linear-gradient(135deg, #ffcc00, #ff6600);
             color: white;
-            font-size: 1em;
+            font-size: 1.5em;
             font-weight: bold;
             border: none;
-            padding: 10px 20px;
+            padding: 15px 30px;
             cursor: pointer;
-            border-radius: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease-in-out;
         }
 
-        button:hover {
-            background: royalblue;
+        #boredButton:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
         }
     </style>
 </head>
 <body>
 
-    <h1>😴 Feeling Bored? 🚀</h1>
-    <button onclick="openRandomSite()">Take Me Somewhere Cool!</button>
-    <iframe id="randomFrame"></iframe>
+    <h1>🚀 Feeling Bored? Try This! 🎉</h1>
+    <div id="container">
+        <button id="boredButton" onclick="openRandomSite()">Surprise Me!</button>
+        <iframe id="siteFrame" src=""></iframe>
+    </div>
 
     <script>
         const websites = [
@@ -82,17 +94,7 @@
 
         function openRandomSite() {
             const randomIndex = Math.floor(Math.random() * websites.length);
-            const randomURL = websites[randomIndex];
-            const iframe = document.getElementById("randomFrame");
-            
-            iframe.src = randomURL;
-
-            // Check if site blocked embedding, if so, open in new tab
-            iframe.onload = function() {
-                if (iframe.contentDocument && iframe.contentDocument.body.innerHTML.length < 10) {
-                    window.open(randomURL, "_blank");
-                }
-            };
+            document.getElementById("siteFrame").src = websites[randomIndex];
         }
     </script>
 
