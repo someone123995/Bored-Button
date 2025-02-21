@@ -102,41 +102,43 @@
     <div class="button-container">
         <button onclick="openRandomSite()">Take Me Somewhere Cool!</button>
     </div>
-    <iframe id="websiteFrame" src="https://neal.fun/" allowfullscreen></iframe>
+    <iframe id="websiteFrame" allowfullscreen></iframe>
 
     <script>
         const websites = [
-    "https://neal.fun/", "https://thisissand.com/", "https://littlealchemy2.com/",
-    "https://theuselessweb.com/", "https://asoftmurmur.com/", "http://weavesilk.com/",
-    "https://quickdraw.withgoogle.com/", "https://skribbl.io/", "https://www.geoguessr.com/",
-    "https://agar.io/", "https://slither.io/", "https://sandspiel.club/",
-    "https://pointerpointer.com/", "http://www.staggeringbeauty.com/", "http://zoomquilt.org/",
-    "https://clickclickclick.click/", "https://www.koalastothemax.com/", "https://www.howstuffworks.com/",
-    "https://www.window-swap.com/", "http://radio.garden/", "https://findtheinvisiblecow.com/",
-    "https://orteil.dashnet.org/cookieclicker/", "https://hackertyper.com/", 
-    "https://www.patatap.com/", "http://www.republiquedesmangues.fr/", 
-    "https://play2048.co/", "https://stars.chromeexperiments.com/", 
-    "https://bongo.cat/", "https://trypap.com/", "https://longdogechallenge.com/",
-    "https://alwaysjudgeabookbyitscover.com/", "https://www.nytimes.com/games/wordle/index.html",
-    "https://www.eyebleach.me/", "https://www.supercook.com/", "https://neal.fun/absurd-trolley-problems/",
-    "https://neal.fun/deep-sea/", "https://neal.fun/password-game/", "https://c.xkcd.com/random/comic/",
-    "https://dinosaurgame.io/", "https://www.flightradar24.com/", "https://musiclab.chromeexperiments.com/",
-    "https://www.rainymood.com/", "https://drawception.com/", "https://stellarium-web.org/",
-    "https://mynoise.net/", "https://www.mentalfloss.com/", "https://neal.fun/wonders-of-street-view/",
-    "https://www.milliondollarcoder.com/", "https://neal.fun/internet-artifacts/",
-    "https://neal.fun/spend/", "https://neal.fun/where-does-the-day-go/",
-    "https://neal.fun/size-of-space/", "https://experiments.withgoogle.com/ai/quick-draw",
-    "https://deepai.org/machine-learning-model/text-generator", "https://radiooooo.com/",
-    "https://tothemoon.live/", "https://www.mcbroken.com/", "https://www.autodraw.com/",
-    "https://emojimosaic.com/", "https://www.futureme.org/", "https://thedeepsea.guide/",
-    "https://histography.io/", "https://neal.fun/rocks/", "https://neal.fun/space-elevator/",
-    "https://drawastickman.com/", "https://sortabrilliant.com/password/",
-    "https://pointerpointer.com/", "https://zoomquilt.org/", "https://www.windows93.net/"
+            "https://neal.fun/", "https://thisissand.com/", "https://littlealchemy2.com/",
+            "https://theuselessweb.com/", "https://asoftmurmur.com/", "http://weavesilk.com/",
+            "https://quickdraw.withgoogle.com/", "https://skribbl.io/", "https://www.geoguessr.com/",
+            "https://agar.io/", "https://slither.io/", "https://sandspiel.club/",
+            "https://pointerpointer.com/", "http://www.staggeringbeauty.com/", "http://zoomquilt.org/",
+            "https://clickclickclick.click/", "https://www.koalastothemax.com/", "https://www.howstuffworks.com/",
+            "https://www.window-swap.com/", "http://radio.garden/", "https://findtheinvisiblecow.com/",
+            "https://orteil.dashnet.org/cookieclicker/", "https://hackertyper.com/", 
+            "https://www.patatap.com/", "https://play2048.co/", "https://stars.chromeexperiments.com/",
+            "https://bongo.cat/", "https://trypap.com/", "https://longdogechallenge.com/",
+            "https://alwaysjudgeabookbyitscover.com/", "https://www.nytimes.com/games/wordle/index.html",
+            "https://www.eyebleach.me/", "https://www.supercook.com/", "https://neal.fun/absurd-trolley-problems/",
+            "https://neal.fun/deep-sea/", "https://neal.fun/password-game/", "https://c.xkcd.com/random/comic/",
+            "https://dinosaurgame.io/", "https://www.flightradar24.com/", "https://musiclab.chromeexperiments.com/",
+            "https://www.rainymood.com/", "https://drawception.com/", "https://stellarium-web.org/",
+            "https://mynoise.net/", "https://www.mentalfloss.com/", "https://neal.fun/wonders-of-street-view/",
+            "https://neal.fun/internet-artifacts/", "https://neal.fun/spend/", 
+            "https://neal.fun/where-does-the-day-go/", "https://neal.fun/size-of-space/"
         ];
-        
+
+        let preloadedSite = "";
+
+        function preloadRandomSite() {
+            preloadedSite = websites[Math.floor(Math.random() * websites.length)];
+            const iframe = document.createElement("iframe");
+            iframe.style.display = "none";
+            iframe.src = preloadedSite;
+            document.body.appendChild(iframe);
+        }
+
         function openRandomSite() {
-            const randomIndex = Math.floor(Math.random() * websites.length);
-            document.getElementById("websiteFrame").src = websites[randomIndex];
+            document.getElementById("websiteFrame").src = preloadedSite;
+            preloadRandomSite(); // Load the next site in advance
         }
 
         function changeTheme() {
@@ -145,6 +147,9 @@
             else if (theme === "blue") document.body.style.background = "#001f3f";
             else document.body.style.background = "black";
         }
+
+        // Preload first site on page load
+        preloadRandomSite();
     </script>
 </body>
 </html>
