@@ -126,9 +126,6 @@
             "https://neal.fun/where-does-the-day-go/", "https://neal.fun/size-of-space/"
         ];
 
-        let shuffledWebsites = [];
-        let index = 0;
-
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -136,10 +133,35 @@
             }
         }
 
+        function getStoredData() {
+            let storedList = localStorage.getItem("shuffledWebsites");
+            let storedIndex = localStorage.getItem("websiteIndex");
+
+            if (storedList && storedIndex) {
+                return { shuffledWebsites: JSON.parse(storedList), index: parseInt(storedIndex) };
+            } else {
+                return null;
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem("shuffledWebsites", JSON.stringify(shuffledWebsites));
+            localStorage.setItem("websiteIndex", index);
+        }
+
         function resetWebsiteList() {
-            shuffledWebsites = [...websites]; 
+            shuffledWebsites = [...websites];
             shuffleArray(shuffledWebsites);
             index = 0;
+            saveData();
+        }
+
+        let storedData = getStoredData();
+        let shuffledWebsites = storedData ? storedData.shuffledWebsites : [];
+        let index = storedData ? storedData.index : 0;
+
+        if (shuffledWebsites.length === 0) {
+            resetWebsiteList();
         }
 
         function openRandomSite() {
@@ -148,6 +170,7 @@
             }
             document.getElementById("websiteFrame").src = shuffledWebsites[index];
             index++;
+            saveData();
         }
 
         function changeTheme() {
@@ -156,9 +179,6 @@
             else if (theme === "blue") document.body.style.background = "#001f3f";
             else document.body.style.background = "black";
         }
-
-        // Initialize shuffled websites on load
-        resetWebsiteList();
     </script>
 </body>
 </html>
