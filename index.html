@@ -8,7 +8,8 @@
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
-            background: linear-gradient(45deg, #001f3f, #004080);
+            background: navy;
+            color: white;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -18,46 +19,44 @@
         }
 
         h1 {
-            font-size: 3em;
-            color: #fff;
-            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+            font-size: 2.5em;
+            margin-bottom: 20px;
         }
 
         button {
-            background: linear-gradient(135deg, #0074D9, #00A8E8);
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
             color: white;
-            font-size: 1.8em;
+            font-size: 1.5em;
             font-weight: bold;
             border: none;
-            padding: 20px 50px;
+            padding: 15px 30px;
             cursor: pointer;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease-in-out;
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 10px;
+            right: 10px;
         }
 
         button:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
         }
 
         iframe {
-            width: 90%;
-            height: 80vh;
-            border: none;
+            width: 95%;
+            height: 85vh;
+            border: 3px solid white;
+            border-radius: 10px;
             margin-top: 20px;
-            background: white;
         }
     </style>
 </head>
 <body>
 
-    <h1>🎉 Feeling Bored? 🚀</h1>
+    <h1>😴 Feeling Bored? 🚀</h1>
     <button onclick="openRandomSite()">Take Me Somewhere Cool!</button>
-    <iframe id="webFrame" src=""></iframe>
+    <iframe id="websiteFrame" src="https://neal.fun/" allowfullscreen></iframe>
 
     <script>
         const websites = [
@@ -76,22 +75,23 @@
             "https://www.eyebleach.me/", "https://www.supercook.com/", "https://neal.fun/absurd-trolley-problems/",
             "https://neal.fun/deep-sea/", "https://neal.fun/password-game/", "https://c.xkcd.com/random/comic/",
             "https://dinosaurgame.io/", "https://www.flightradar24.com/", "https://musiclab.chromeexperiments.com/",
-            "https://www.rainymood.com/", "https://drawception.com/", "https://stars.chromeexperiments.com/",
-            "https://stellarium-web.org/", "https://mynoise.net/", "https://volvocars.com/intl/own/explore/volvo-360c",
-            "https://www.mentalfloss.com/", "https://neal.fun/wonders-of-street-view/", "https://www.milliondollarcoder.com/",
-            "https://neal.fun/internet-artifacts/", "https://deepai.org/machine-learning-model/text2img",
-            "https://www.incredibox.com/", "https://neal.fun/space-elevator/", "https://neal.fun/tiny-helpers/",
-            "https://neal.fun/print-thing/", "https://neal.fun/design-tools/", "https://neal.fun/animation-tools/",
-            "https://neal.fun/paint-apps/", "https://neal.fun/creative-tools/", "https://neal.fun/color-tools/",
-            "https://neal.fun/sound-tools/", "https://neal.fun/story-tools/", "https://neal.fun/game-dev-tools/",
-            "https://neal.fun/game-assets/", "https://neal.fun/font-tools/", "https://neal.fun/svg-tools/",
-            "https://neal.fun/meme-generators/", "https://neal.fun/code-editors/", "https://neal.fun/website-templates/",
-            "https://neal.fun/developer-resources/", "https://neal.fun/pixel-art-tools/", "https://neal.fun/text-effects/"
+            "https://www.rainymood.com/", "https://drawception.com/", "https://stellarium-web.org/",
+            "https://mynoise.net/", "https://www.mentalfloss.com/", "https://neal.fun/wonders-of-street-view/",
+            "https://www.milliondollarcoder.com/", "https://neal.fun/internet-artifacts/"
         ];
 
         function openRandomSite() {
             const randomIndex = Math.floor(Math.random() * websites.length);
-            document.getElementById("webFrame").src = websites[randomIndex];
+            const iframe = document.getElementById("websiteFrame");
+            iframe.src = websites[randomIndex];
+
+            iframe.onload = function() {
+                setTimeout(() => {
+                    if (iframe.contentWindow.location.href === "about:blank") {
+                        window.open(websites[randomIndex], "_blank");
+                    }
+                }, 1000);
+            };
         }
     </script>
 
