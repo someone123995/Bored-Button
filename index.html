@@ -123,27 +123,14 @@
             "https://dinosaurgame.io/", "https://www.flightradar24.com/", "https://musiclab.chromeexperiments.com/",
             "https://www.rainymood.com/", "https://drawception.com/", "https://stellarium-web.org/",
             "https://mynoise.net/", "https://www.mentalfloss.com/", "https://neal.fun/wonders-of-street-view/",
-            "https://www.milliondollarcoder.com/", "https://neal.fun/internet-artifacts/"
+            "https://www.milliondollarcoder.com/", "https://neal.fun/internet-artifacts/",
+            "https://neal.fun/where-does-the-time-go/", "https://neal.fun/space-elevator/",
+            "https://neal.fun/clickerheroes/", "https://www.typingclub.com/", "https://www.drawasaurus.org/"
         ];
         
         function openRandomSite() {
-            let attempts = 0;
-            function tryLoad() {
-                if (attempts < 3) {
-                    const randomIndex = Math.floor(Math.random() * websites.length);
-                    let frame = document.getElementById("websiteFrame");
-                    frame.src = websites[randomIndex];
-                    attempts++;
-                    setTimeout(() => {
-                        if (!frame.contentWindow || frame.contentWindow.length === 0) {
-                            tryLoad();
-                        }
-                    }, 1000);
-                } else {
-                    window.open(websites[randomIndex], '_blank');
-                }
-            }
-            tryLoad();
+            const randomIndex = Math.floor(Math.random() * websites.length);
+            document.getElementById("websiteFrame").src = websites[randomIndex];
         }
 
         function changeTheme() {
