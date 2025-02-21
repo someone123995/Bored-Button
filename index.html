@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bored Button</title>
     <style>
+        :root {
+            --primary-color: #00ffff;
+            --secondary-color: #ff00ff;
+            --background-gradient: radial-gradient(circle at center, #001f3f, #000000);
+        }
+        
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
-            background: radial-gradient(circle at center, #001f3f, #000000);
+            background: var(--background-gradient);
             color: white;
             display: flex;
             flex-direction: column;
@@ -22,7 +28,7 @@
         h1 {
             font-size: 3.5em;
             margin-bottom: 15px;
-            text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+            text-shadow: 0 0 15px var(--primary-color);
             font-family: 'Orbitron', sans-serif;
         }
 
@@ -48,7 +54,7 @@
         }
 
         button {
-            background: linear-gradient(135deg, #ff00ff, #00ffff);
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
             color: white;
             font-size: 1.8em;
             font-weight: bold;
@@ -56,14 +62,14 @@
             padding: 20px 40px;
             cursor: pointer;
             border-radius: 50px;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+            box-shadow: 0 0 15px var(--primary-color);
             transition: transform 0.3s, box-shadow 0.3s;
             font-family: 'Press Start 2P', cursive;
         }
 
         button:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 1);
+            box-shadow: 0 0 30px var(--primary-color);
         }
 
         iframe {
@@ -71,146 +77,71 @@
             height: 70vh;
             border: none;
             border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            box-shadow: 0 0 20px var(--primary-color);
             background: white;
             margin-top: 20px;
         }
 
-        .settings-icon {
+        .settings {
             position: absolute;
             top: 10px;
             right: 10px;
-            cursor: pointer;
-            font-size: 2em;
         }
 
-        .settings-menu {
-            position: absolute;
-            top: 50px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 10px;
-            border-radius: 5px;
-            display: none;
-        }
-
-        .settings-menu label, .settings-menu select {
-            display: block;
-            margin: 5px 0;
-            color: white;
+        select {
+            padding: 5px;
+            font-size: 1em;
         }
     </style>
 </head>
 <body>
-
-    <h1 id="title">🚀 The Ultimate Bored Button! 🎮</h1>
+    <h1>🚀 The Ultimate Bored Button! 🎮</h1>
     <p id="notice">⚠️ Click once & have fun! If a site doesn’t load, click again! ⚠️</p>
     <div class="button-container">
         <button onclick="openRandomSite()">Take Me Somewhere Cool!</button>
     </div>
     <iframe id="websiteFrame" src="https://neal.fun/" allowfullscreen></iframe>
-
-    <div class="settings-icon" onclick="toggleSettings()">⚙️</div>
-    <div class="settings-menu" id="settingsMenu">
-        <label><input type="checkbox" id="glowToggle" onclick="toggleGlow()"> Toggle Glow</label>
-        <label><input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()"> Dark Mode</label>
-        <label>Change Color Theme:
-            <select id="colorTheme" onchange="changeTheme()">
-                <option value="default">Default</option>
-                <option value="cyberpunk">Cyberpunk</option>
-                <option value="retro">Retro</option>
-                <option value="solarized">Solarized</option>
-            </select>
-        </label>
+    
+    <div class="settings">
+        <label for="themeSelector">Theme:</label>
+        <select id="themeSelector" onchange="changeTheme()">
+            <option value="cyber">Cyber Blue</option>
+            <option value="retro">Retro Neon</option>
+            <option value="solar">Solar Gold</option>
+            <option value="dark">Dark Void</option>
+        </select>
     </div>
 
     <script>
-        const websites = ["https://neal.fun/
-https://thisissand.com/
-https://littlealchemy2.com/
-https://theuselessweb.com/
-https://asoftmurmur.com/
-http://weavesilk.com/
-https://quickdraw.withgoogle.com/
-https://skribbl.io/
-https://www.geoguessr.com/
-https://agar.io/
-https://slither.io/
-https://sandspiel.club/
-https://pointerpointer.com/
-http://www.staggeringbeauty.com/
-http://zoomquilt.org/
-https://clickclickclick.click/
-https://www.koalastothemax.com/
-https://www.howstuffworks.com/
-https://www.window-swap.com/
-http://radio.garden/
-https://findtheinvisiblecow.com/
-https://orteil.dashnet.org/cookieclicker/
-https://hackertyper.com/
-https://www.patatap.com/
-http://www.republiquedesmangues.fr/
-https://play2048.co/
-https://stars.chromeexperiments.com/
-https://bongo.cat/
-https://trypap.com/
-https://longdogechallenge.com/
-https://alwaysjudgeabookbyitscover.com/
-https://www.nytimes.com/games/wordle/index.html
-https://www.eyebleach.me/
-https://www.supercook.com/
-https://neal.fun/absurd-trolley-problems/
-https://neal.fun/deep-sea/
-https://neal.fun/password-game/
-https://c.xkcd.com/random/comic/
-https://dinosaurgame.io/
-https://www.flightradar24.com/
-https://musiclab.chromeexperiments.com/
-https://www.rainymood.com/
-https://drawception.com/
-https://stellarium-web.org/
-https://mynoise.net/
-https://www.mentalfloss.com/
-https://neal.fun/wonders-of-street-view/
-https://www.milliondollarcoder.com/
-https://neal.fun/internet-artifacts/"];
+        const websites = [
+            "https://neal.fun/", "https://thisissand.com/", "https://littlealchemy2.com/",
+            "https://theuselessweb.com/", "https://asoftmurmur.com/", "http://weavesilk.com/",
+            "https://quickdraw.withgoogle.com/", "https://skribbl.io/", "https://www.geoguessr.com/",
+            "https://agar.io/", "https://slither.io/", "https://sandspiel.club/",
+            "https://pointerpointer.com/", "http://www.staggeringbeauty.com/", "http://zoomquilt.org/",
+            "https://clickclickclick.click/", "https://www.koalastothemax.com/", "https://www.howstuffworks.com/",
+            "https://www.window-swap.com/", "http://radio.garden/", "https://findtheinvisiblecow.com/"
+        ];
 
         function openRandomSite() {
             const randomIndex = Math.floor(Math.random() * websites.length);
             document.getElementById("websiteFrame").src = websites[randomIndex];
         }
 
-        function toggleSettings() {
-            const menu = document.getElementById("settingsMenu");
-            menu.style.display = menu.style.display === "block" ? "none" : "block";
-        }
-
-        function toggleGlow() {
-            const title = document.getElementById("title");
-            title.style.textShadow = document.getElementById("glowToggle").checked ? "0 0 15px rgba(0, 255, 255, 0.8)" : "none";
-        }
-
-        function toggleDarkMode() {
-            document.body.classList.toggle("dark-mode");
-        }
-
         function changeTheme() {
-            const theme = document.getElementById("colorTheme").value;
-            const body = document.body;
-            const button = document.querySelector("button");
-            if (theme === "default") {
-                body.style.background = "radial-gradient(circle at center, #001f3f, #000000)";
-                button.style.background = "linear-gradient(135deg, #ff00ff, #00ffff)";
-            } else if (theme === "cyberpunk") {
-                body.style.background = "radial-gradient(circle at center, #00ff00, #800080)";
-                button.style.background = "linear-gradient(135deg, #ff0000, #ffff00)";
-            } else if (theme === "retro") {
-                body.style.background = "radial-gradient(circle at center, #ff8c00, #8b4513)";
-                button.style.background = "linear-gradient(135deg, #ff4500, #ffcc00)";
-            } else if (theme === "solarized") {
-                body.style.background = "radial-gradient(circle at center, #b58900, #002b36)";
-                button.style.background = "linear-gradient(135deg, #268bd2, #2aa198)";
-            }
+            const theme = document.getElementById("themeSelector").value;
+            const root = document.documentElement;
+            
+            const themes = {
+                cyber: { primary: "#00ffff", secondary: "#ff00ff", bg: "radial-gradient(circle at center, #001f3f, #000000)" },
+                retro: { primary: "#ffcc00", secondary: "#ff6600", bg: "radial-gradient(circle at center, #6600cc, #330066)" },
+                solar: { primary: "#ffd700", secondary: "#ff8c00", bg: "radial-gradient(circle at center, #ff4500, #8b0000)" },
+                dark: { primary: "#888", secondary: "#444", bg: "radial-gradient(circle at center, #111, #000)" }
+            };
+            
+            root.style.setProperty('--primary-color', themes[theme].primary);
+            root.style.setProperty('--secondary-color', themes[theme].secondary);
+            root.style.setProperty('--background-gradient', themes[theme].bg);
         }
     </script>
 </body>
