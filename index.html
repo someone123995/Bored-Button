@@ -8,69 +8,41 @@
         body {
             text-align: center;
             font-family: Arial, sans-serif;
-            margin-top: 50px;
+            margin-top: 20%;
         }
         button {
             font-size: 20px;
             padding: 10px 20px;
-            background-color: #007BFF;
+            background-color: #ff4500;
             color: white;
             border: none;
-            border-radius: 5px;
             cursor: pointer;
+            border-radius: 10px;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #e63e00;
         }
     </style>
 </head>
 <body>
-    <h1>Feeling Bored?</h1>
-    <button onclick="randomSite()">Click Me!</button>
+    <h1>Feeling Bored? Click Below!</h1>
+    <button onclick="openRandomSite()">Bored Button</button>
 
     <script>
         const websites = [
-            "https://www.bbc.com/news", "https://www.cnn.com", "https://www.nytimes.com", 
-            "https://www.theguardian.com", "https://www.aljazeera.com", "https://www.reuters.com", 
-            "https://www.npr.org", "https://www.wsj.com", "https://www.economist.com", "https://www.washingtonpost.com",
-            "https://techcrunch.com", "https://www.wired.com", "https://www.theverge.com", "https://www.cnet.com", 
-            "https://mashable.com", "https://www.engadget.com", "https://lifehacker.com", "https://gizmodo.com", 
-            "https://www.digitaltrends.com", "https://www.techradar.com",
-            "https://www.imdb.com", "https://www.rottentomatoes.com", "https://variety.com", 
-            "https://pitchfork.com", "https://www.rollingstone.com", "https://www.avclub.com",
-            "https://www.billboard.com", "https://www.vulture.com", "https://www.polygon.com",
-            "https://www.khanacademy.org", "https://www.ted.com", "https://www.coursera.org",
-            "https://www.udacity.com", "https://www.edx.org", "https://www.codecademy.com",
-            "https://brainly.com", "https://www.academicearth.org", "https://www.rosettastone.com",
-            "https://www.futurelearn.com",
-            "https://www.bonappetit.com", "https://www.travelandleisure.com", "https://www.thecut.com",
-            "https://food52.com", "https://www.architecturaldigest.com", "https://www.realsimple.com",
-            "https://www.elledecor.com", "https://www.goodhousekeeping.com", "https://www.inc.com",
-            "https://www.entrepreneur.com",
-            "https://www.webmd.com", "https://www.mayoclinic.org", "https://www.healthline.com",
-            "https://www.menshealth.com", "https://www.womenshealthmag.com", "https://www.psychologytoday.com",
-            "https://www.everydayhealth.com", "https://www.prevention.com", "https://www.verywellhealth.com",
-            "https://www.health.com",
-            "https://www.facebook.com", "https://twitter.com", "https://www.instagram.com",
-            "https://www.linkedin.com", "https://www.pinterest.com", "https://www.tiktok.com",
-            "https://www.youtube.com", "https://www.snapchat.com", "https://www.reddit.com",
-            "https://www.tumblr.com",
-            "https://www.amazon.com", "https://www.etsy.com", "https://www.target.com",
-            "https://www.walmart.com", "https://www.bestbuy.com", "https://www.zara.com",
-            "https://www.sephora.com", "https://www.nordstrom.com", "https://www.homedepot.com",
-            "https://www.rei.com",
-            "https://www.espn.com", "https://www.si.com", "https://bleacherreport.com",
-            "https://www.mlb.com", "https://www.nba.com", "https://www.nfl.com",
-            "https://www.nhl.com", "https://www.fifa.com", "https://www.pga.com",
-            "https://biblegateway.com", "https://www.desiringgod.org", "https://www.christianitytoday.com",
-            "https://www.relevantmagazine.com", "https://www.thegospelcoalition.org",
-            "https://odb.org", "https://www.crosswalk.com", "https://www.heartlight.org",
-            "https://www.biblestudytools.com", "https://bible.org"
+            "https://www.exploratorium.edu/explore",
+            "https://www.nasa.gov/kidsclub/index.html",
+            "https://neal.fun/",
+            "https://www.typingclub.com/",
+            "https://www.howstuffworks.com/",
+            "https://quickdraw.withgoogle.com/",
+            "https://www.window-swap.com/",
+            "https://radio.garden/"
         ];
 
-        function randomSite() {
-            const randomIndex = Math.floor(Math.random() * websites.length);
-            window.open(websites[randomIndex], "_blank");
+        function openRandomSite() {
+            const site = websites[Math.floor(Math.random() * websites.length)];
+            window.open(site, "_blank"); // Opens in a new tab
         }
     </script>
 </body>
