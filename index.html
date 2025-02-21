@@ -78,24 +78,16 @@
         ];
 
         function openRandomSite() {
-            let maxAttempts = 10;
-            let attempt = 0;
-            function tryLoad() {
-                if (attempt >= maxAttempts) {
-                    window.open(websites[Math.floor(Math.random() * websites.length)], "_blank");
-                    return;
+            const frame = document.getElementById("websiteFrame");
+            let randomIndex = Math.floor(Math.random() * websites.length);
+            frame.src = websites[randomIndex];
+            
+            setTimeout(() => {
+                if (frame.contentWindow.document.body.childElementCount === 0) {
+                    randomIndex = Math.floor(Math.random() * websites.length);
+                    frame.src = websites[randomIndex];
                 }
-                const randomIndex = Math.floor(Math.random() * websites.length);
-                const frame = document.getElementById("websiteFrame");
-                frame.src = websites[randomIndex];
-                setTimeout(() => {
-                    if (!frame.contentWindow || frame.contentWindow.length === 0) {
-                        attempt++;
-                        tryLoad();
-                    }
-                }, 2000);
-            }
-            tryLoad();
+            }, 1500); // If blank, try another after 1.5 seconds
         }
     </script>
 
