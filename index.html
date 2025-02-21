@@ -6,9 +6,10 @@
     <title>Bored Button</title>
     <style>
         body {
-            font-family: 'Comic Sans MS', sans-serif;
+            font-family: 'Arial', sans-serif;
             text-align: center;
-            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            background: navy;
+            color: white;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -19,49 +20,42 @@
 
         h1 {
             font-size: 2.5em;
-            color: #fff;
-            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        #randomFrame {
+            width: 90%;
+            height: 80vh;
+            border: 3px solid white;
+            border-radius: 10px;
+            background: white;
         }
 
         button {
-            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: dodgerblue;
             color: white;
-            font-size: 1.5em;
+            font-size: 1em;
             font-weight: bold;
             border: none;
-            padding: 20px 40px;
+            padding: 10px 20px;
             cursor: pointer;
-            border-radius: 50px;
+            border-radius: 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease-in-out;
-            animation: pulse 2s infinite;
-            margin-bottom: 20px;
         }
 
         button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        iframe {
-            width: 80vw;
-            height: 70vh;
-            border: 5px solid white;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            background: royalblue;
         }
     </style>
 </head>
 <body>
+
     <h1>😴 Feeling Bored? 🚀</h1>
     <button onclick="openRandomSite()">Take Me Somewhere Cool!</button>
-    <iframe id="siteFrame" src="" frameborder="0"></iframe>
+    <iframe id="randomFrame"></iframe>
 
     <script>
         const websites = [
@@ -80,16 +74,27 @@
             "https://www.eyebleach.me/", "https://www.supercook.com/", "https://neal.fun/absurd-trolley-problems/",
             "https://neal.fun/deep-sea/", "https://neal.fun/password-game/", "https://c.xkcd.com/random/comic/",
             "https://dinosaurgame.io/", "https://www.flightradar24.com/", "https://musiclab.chromeexperiments.com/",
-            "https://www.rainymood.com/", "https://drawception.com/", "https://stellarium-web.org/",
-            "https://mynoise.net/", "https://volvocars.com/intl/own/explore/volvo-360c",
+            "https://www.rainymood.com/", "https://drawception.com/", "https://stars.chromeexperiments.com/",
+            "https://stellarium-web.org/", "https://mynoise.net/", "https://volvocars.com/intl/own/explore/volvo-360c",
             "https://www.mentalfloss.com/", "https://neal.fun/wonders-of-street-view/", "https://www.milliondollarcoder.com/",
             "https://neal.fun/internet-artifacts/"
         ];
 
         function openRandomSite() {
             const randomIndex = Math.floor(Math.random() * websites.length);
-            document.getElementById("siteFrame").src = websites[randomIndex];
+            const randomURL = websites[randomIndex];
+            const iframe = document.getElementById("randomFrame");
+            
+            iframe.src = randomURL;
+
+            // Check if site blocked embedding, if so, open in new tab
+            iframe.onload = function() {
+                if (iframe.contentDocument && iframe.contentDocument.body.innerHTML.length < 10) {
+                    window.open(randomURL, "_blank");
+                }
+            };
         }
     </script>
+
 </body>
 </html>
