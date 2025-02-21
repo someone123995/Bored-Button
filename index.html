@@ -7,26 +7,73 @@
     <style>
         body {
             text-align: center;
-            font-family: Arial, sans-serif;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             margin-top: 50px;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #ffdde1);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
         }
-        button {
-            font-size: 20px;
-            padding: 10px 20px;
-            background-color: #007BFF;
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            font-size: 40px;
+            color: #fff;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .bored-button {
+            font-size: 24px;
+            padding: 15px 30px;
+            background: linear-gradient(90deg, #ff416c, #ff4b2b);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
+            box-shadow: 0px 10px 20px rgba(255, 75, 43, 0.4);
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
         }
-        button:hover {
-            background-color: #0056b3;
+
+        .bored-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 15px 25px rgba(255, 75, 43, 0.6);
         }
+
+        .bored-button:active {
+            transform: scale(0.95);
+            box-shadow: 0px 5px 15px rgba(255, 75, 43, 0.8);
+        }
+
+        .bored-button::after {
+            content: "";
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.3);
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            transition: 0.3s;
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        .bored-button:hover::after {
+            width: 300%;
+            height: 300%;
+            opacity: 1;
+        }
+
     </style>
 </head>
 <body>
     <h1>Feeling Bored?</h1>
-    <button onclick="randomSite()">Click Me!</button>
+    <button class="bored-button" onclick="randomSite()">🎲 Take Me Somewhere Cool! 🎉</button>
 
     <script>
         const websites = [
