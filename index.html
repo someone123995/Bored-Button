@@ -53,7 +53,7 @@
 
     <h1>😴 Feeling Bored? 🚀</h1>
     <button onclick="openRandomSite()">Take Me Somewhere Cool!</button>
-    <iframe id="websiteFrame" src="https://neal.fun/" allowfullscreen></iframe>
+    <iframe id="websiteFrame" src="https://neal.fun/" allowfullscreen onload="checkBlankPage()"></iframe>
 
     <script>
         const websites = [
@@ -78,16 +78,17 @@
         ];
 
         function openRandomSite() {
-            const frame = document.getElementById("websiteFrame");
-            let randomIndex = Math.floor(Math.random() * websites.length);
-            frame.src = websites[randomIndex];
-            
+            const randomIndex = Math.floor(Math.random() * websites.length);
+            document.getElementById("websiteFrame").src = websites[randomIndex];
+        }
+
+        function checkBlankPage() {
+            const iframe = document.getElementById("websiteFrame");
             setTimeout(() => {
-                if (frame.contentWindow.document.body.childElementCount === 0) {
-                    randomIndex = Math.floor(Math.random() * websites.length);
-                    frame.src = websites[randomIndex];
+                if (!iframe.contentWindow.document.body.innerHTML.trim()) {
+                    openRandomSite();
                 }
-            }, 1500); // If blank, try another after 1.5 seconds
+            }, 100);
         }
     </script>
 
