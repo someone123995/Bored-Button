@@ -8,7 +8,7 @@
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
-            background: radial-gradient(circle at center, #001f3f, #000000);
+            background: black;
             color: white;
             display: flex;
             flex-direction: column;
@@ -16,93 +16,31 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            overflow: hidden;
-            transition: background 0.5s;
         }
-
-        h1 {
-            font-size: 3.5em;
-            margin-bottom: 15px;
-            text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        #notice {
-            font-size: 1.2em;
-            margin-bottom: 20px;
-            color: #ffcc00;
-            font-weight: bold;
-            animation: flicker 1.5s infinite alternate;
-        }
-
-        @keyframes flicker {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
+        h1 { font-size: 2em; margin-bottom: 10px; }
         button {
-            background: linear-gradient(135deg, #ff00ff, #00ffff);
-            color: white;
-            font-size: 1.8em;
-            font-weight: bold;
-            border: none;
-            padding: 20px 40px;
+            font-size: 1.5em;
+            padding: 10px 20px;
             cursor: pointer;
-            border-radius: 50px;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
-            transition: transform 0.3s, box-shadow 0.3s;
-            font-family: 'Press Start 2P', cursive;
+            border: none;
+            background: #ff00ff;
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 20px;
         }
-
-        button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 1);
-        }
-
         iframe {
             width: 90%;
             height: 70vh;
             border: none;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            border-radius: 10px;
             background: white;
-            margin-top: 20px;
         }
-
-        .settings {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-        }
-
-        .hidden { display: none; }
     </style>
 </head>
 <body>
-    <div class="settings">
-        <label>Theme: </label>
-        <select id="themeSelector" onchange="changeTheme()">
-            <option value="dark">Dark</option>
-            <option value="light">Light</option>
-            <option value="blue">Blue</option>
-        </select>
-    </div>
-
-    <h1>🚀 The Ultimate Bored Button! 🎮</h1>
-    <p id="notice">⚠️ Click once & have fun! If a site doesn’t load, click again! ⚠️</p>
-    <div class="button-container">
-        <button onclick="openRandomSite()">Take Me Somewhere Cool!</button>
-    </div>
-    <iframe id="websiteFrame" allowfullscreen></iframe>
+    <h1>🔘 Bored? Click Here! 🔘</h1>
+    <button onclick="openRandomSite()">Take Me Somewhere Cool!</button>
+    <iframe id="websiteFrame"></iframe>
 
     <script>
         let websites = [
@@ -133,51 +71,44 @@
             }
         }
 
-        function getStoredData() {
-            let storedList = localStorage.getItem("shuffledWebsites");
-            let storedIndex = localStorage.getItem("websiteIndex");
-
-            if (storedList && storedIndex) {
-                return { shuffledWebsites: JSON.parse(storedList), index: parseInt(storedIndex) };
+        function loadFromStorage() {
+            let storedList = JSON.parse(localStorage.getItem("shuffledWebsites"));
+            let storedIndex = parseInt(localStorage.getItem("websiteIndex"), 10);
+            
+            if (storedList && storedIndex >= 0 && storedList.length === websites.length) {
+                return { shuffledWebsites: storedList, index: storedIndex };
             } else {
                 return null;
             }
         }
 
-        function saveData() {
+        function saveToStorage() {
             localStorage.setItem("shuffledWebsites", JSON.stringify(shuffledWebsites));
-            localStorage.setItem("websiteIndex", index);
+            localStorage.setItem("websiteIndex", index.toString());
         }
 
-        function resetWebsiteList() {
+        function resetList() {
             shuffledWebsites = [...websites];
             shuffleArray(shuffledWebsites);
             index = 0;
-            saveData();
+            saveToStorage();
         }
 
-        let storedData = getStoredData();
+        let storedData = loadFromStorage();
         let shuffledWebsites = storedData ? storedData.shuffledWebsites : [];
         let index = storedData ? storedData.index : 0;
 
         if (shuffledWebsites.length === 0) {
-            resetWebsiteList();
+            resetList();
         }
 
         function openRandomSite() {
             if (index >= shuffledWebsites.length) {
-                resetWebsiteList();
+                resetList();
             }
             document.getElementById("websiteFrame").src = shuffledWebsites[index];
             index++;
-            saveData();
-        }
-
-        function changeTheme() {
-            let theme = document.getElementById("themeSelector").value;
-            if (theme === "light") document.body.style.background = "#f5f5f5";
-            else if (theme === "blue") document.body.style.background = "#001f3f";
-            else document.body.style.background = "black";
+            saveToStorage();
         }
     </script>
 </body>
