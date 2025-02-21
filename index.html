@@ -1,51 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bored Button</title>
-    <style>
-        body {
-            text-align: center;
-            font-family: Arial, sans-serif;
-            margin-top: 20%;
-            background-color: #f8f8f8;
-        }
-        button {
-            font-size: 20px;
-            padding: 10px 20px;
-            background-color: red;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 10px;
-        }
-        button:hover {
-            background-color: darkred;
-        }
-    </style>
-</head>
-<body>
-    <h1>Feeling Bored? Click Below!</h1>
-    <button onclick="openRandomSite()">Bored Button</button>
-
-    <script>
-        const websites = [
-            "https://www.exploratorium.edu/explore",
-            "https://www.nasa.gov/kidsclub/index.html",
-            "https://neal.fun/",
-            "https://www.typingclub.com/",
-            "https://www.howstuffworks.com/",
-            "https://quickdraw.withgoogle.com/",
-            "https://www.window-swap.com/",
-            "https://puzzle-english.com/crossword",
-            "https://radio.garden/"
+<script>
+    function openRandomSite() {
+        var sites = [
+            "https://neal.fun/",  
+            "https://theuselessweb.com/",  
+            "https://www.window-swap.com/",  
+            "https://thisissand.com/",  
+            "https://play2048.co/",  
+            "https://quickdraw.withgoogle.com/",  
+            "https://radio.garden/",  
+            "https://www.typingclub.com/",  
+            "https://stellarium-web.org/",  
+            "https://pointerpointer.com/",
+            "https://www.trypap.com/",
+            "https://www.koalastothemax.com/",
+            "https://zoomquilt.org/",
+            "https://asoftmurmur.com/",
+            "https://hackertyper.com/",
+            "https://dinosaurpictures.org/ancient-earth#0",
+            "https://www.sporcle.com/",
+            "https://orteil.dashnet.org/cookieclicker/",
+            "https://www.sandspiel.club/",
+            "https://c.xkcd.com/random/comic/",
+            "https://findtheinvisiblecow.com/",
+            "https://cat-bounce.com/",
+            "https://weavesilk.com/",
+            "https://www.boredbutton.com/",
+            "https://papertoilet.com/",
+            "https://www.linerider.com/",
+            "https://littlealchemy.com/",
+            "https://www.playphrase.me/",
+            "https://emojihub.yurace.pro/random",
+            "https://www.typingtest.com/",
+            "https://puginarug.com/",
+            "https://www.nytimes.com/games/wordle/index.html",
+            "https://neal.fun/infinite-craft/",
+            "https://www.howmanypeopleareinspacerightnow.com/",
+            "https://www.drawastickman.com/",
+            "https://stars.chromeexperiments.com/",
+            "https://thedeepsea.guide/",
+            "https://neal.fun/deep-sea/",
+            "https://neal.fun/password-game/",
+            "https://neal.fun/absurd-trolley-problems/",
+            "https://patatap.com/",
+            "https://jellymar.io/",
+            "https://mondrimat.com/",
+            "https://optical.toys/",
+            "https://clickclickclick.click/",
+            "https://sortthecourt.com/",
+            "https://doodlecricket.github.io/",
+            "https://sandgame.com/",
+            "https://corgiorgy.com/",
+            "https://pointerpointer.com/",
+            "https://www.lovecalculator.com/",
+            "https://whereisroadster.com/",
+            "https://slither.io/",
+            "https://agar.io/",
+            "https://diep.io/",
+            "https://www.geoguessr.com/",
+            "https://neal.fun/spend/",
+            "https://cursors.io/",
+            "https://lavafloor.com/",
+            "https://omfgdogs.com/",
+            "https://www.windows93.net/",
+            "https://www.rainymood.com/",
+            "https://www.reddit.com/r/oddlysatisfying/",
+            "https://neal.fun/space-elevator/",
+            "https://neal.fun/size-of-space/",
+            "https://radiooooo.com/",
+            "https://neal.fun/wonders-of-street-view/"
         ];
 
-        function openRandomSite() {
-            const site = websites[Math.floor(Math.random() * websites.length)];
-            window.location.href = site; // Redirects in the same tab
-        }
-    </script>
-</body>
-</html>
+        var randomSite = sites[Math.floor(Math.random() * sites.length)];
+        window.open(randomSite, "_blank");
+    }
+</script>
