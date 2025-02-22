@@ -27,7 +27,24 @@
             font-family: 'Orbitron', sans-serif;
         }
 
+        #notice {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #ffcc00;
+            font-weight: bold;
+            animation: flicker 1.5s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
         .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin-bottom: 20px;
         }
 
@@ -66,6 +83,8 @@
             right: 10px;
             cursor: pointer;
         }
+
+        .hidden { display: none; }
     </style>
 </head>
 <body>
@@ -79,96 +98,61 @@
     </div>
 
     <h1>🚀 The Ultimate Bored Button! 🎮</h1>
+    <p id="notice">⚠️ Click once & have fun! If a site doesn’t load, click again! ⚠️</p>
     <div class="button-container">
         <button onclick="openRandomSite()">Take Me Somewhere Cool!</button>
     </div>
     <iframe id="websiteFrame" allowfullscreen></iframe>
 
     <script>
-        let websites = [
-    "https://www.exploratorium.edu", "https://www.howstuffworks.com", "https://www.thisiscolossal.com", "https://www.worldhistory.org", "https://www.literature-map.com",
-    "https://www.nasa.gov/kidsclub", "https://www.sporcle.com", "https://www.geoguessr.com", "https://www.triviawell.com", "https://www.khanacademy.org",
-    "https://www.sciencenewsforstudents.org", "https://www.coursera.org", "https://www.futurelearn.com", "https://www.codecademy.com", "https://www.udemy.com",
-    "https://www.duolingo.com", "https://www.memrise.com", "https://www.openlibrary.org", "https://www.gutenberg.org", "https://www.storynory.com",
-    "https://www.typing.com", "https://www.keybr.com", "https://www.10fastfingers.com", "https://www.typelit.io", "https://www.mathplayground.com",
-    "https://www.coolmathgames.com", "https://www.brainpop.com", "https://www.mathsisfun.com", "https://www.purplemath.com", "https://www.desmos.com",
-    "https://www.wolframalpha.com", "https://www.nationalgeographic.com", "https://www.natgeokids.com", "https://www.sciencebuddies.org", "https://www.biointeractive.org",
-    "https://www.smithsonianmag.com", "https://www.si.edu/kids", "https://www.ted.com/talks", "https://www.ted-ed.org", "https://www.tate.org.uk/kids",
-    "https://www.music-map.com", "https://www.rainymood.com", "https://www.asoftmurmur.com", "https://www.noisli.com", "https://www.binauralbeatsmeditation.com",
-    "https://www.radio.garden", "https://www.spacex.com", "https://www.solarsystemscope.com", "https://www.universetoday.com", "https://www.night-sky-maps.com",
-    "https://www.constellation-guide.com", "https://www.deepai.org", "https://www.aiweirdness.com", "https://www.artbreeder.com", "https://www.runwayml.com",
-    "https://www.chess.com", "https://www.lichess.org", "https://www.pychess.org", "https://www.scrabblewordfinder.org", "https://www.lexulous.com",
-    "https://www.setgame.com", "https://www.cardgames.io", "https://www.worldcubeassociation.org", "https://www.speedcubing.com", "https://www.jigsawplanet.com",
-    "https://www.puzzling.stackexchange.com", "https://www.logic-puzzles.org", "https://www.mastermindboardgame.com", "https://www.brainzilla.com", "https://www.rebus.club",
-    "https://www.mentalfloss.com/amazingfactgenerator", "https://www.boredpanda.com", "https://www.todayifoundout.com", "https://www.reddit.com/r/interestingasfuck", "https://www.reddit.com/r/mildlyinteresting",
-    "https://www.giphy.com", "https://www.thispersondoesnotexist.com", "https://www.quickdraw.withgoogle.com", "https://www.ai-art-generator.com", "https://www.wordle-game.org",
-    "https://www.quordle.com", "https://www.nytimes.com/games/wordle/index.html", "https://www.phrazle.co", "https://www.crosswordlabs.com", "https://www.kryss.com",
-    "https://www.merriam-webster.com/word-games", "https://www.thesaurus.com", "https://www.dictionary.com", "https://www.etymonline.com", "https://www.goodreads.com",
-    "https://www.bookbub.com", "https://www.whatshouldireadnext.com", "https://www.librarything.com", "https://www.nypl.org", "https://www.loc.gov",
-    "https://www.virtualmuseum.ca", "https://www.metmuseum.org", "https://www.britishmuseum.org", "https://www.rijksmuseum.nl/en", "https://www.artsy.net",
-    "https://www.moma.org", "https://www.wikiart.org", "https://www.nationalgallery.org.uk", "https://www.artic.edu", "https://www.artcyclopedia.com",
-    "https://www.sandiegozoo.org/live-cams", "https://www.monterybayaquarium.org/animals/live-cams", "https://www.explore.org/livecams", "https://www.ocearch.org/tracker", "https://www.inaturalist.org",
-    "https://www.birdwatchingdaily.com", "https://www.allaboutbirds.org", "https://www.ebird.org", "https://www.macaulaylibrary.org", "https://www.projectnoah.org",
-    "https://www.instructables.com", "https://www.makezine.com", "https://www.howtodothings.com", "https://www.diy.org", "https://www.kidspot.com.au",
-    "https://www.experimonkey.com", "https://www.stevespanglerscience.com", "https://www.sciencekids.co.nz", "https://www.kidscraftroom.com", "https://www.activityvillage.co.uk",
-    "https://www.yourmechanic.com/article", "https://www.howacarworks.com", "https://www.carsguide.com.au", "https://www.cartalk.com", "https://www.thedrive.com",
-    "https://www.realpython.com", "https://www.learnpython.org", "https://www.javascript.info", "https://www.w3schools.com", "https://www.mdn.dev",
-    "https://www.codecademy.com/learn/learn-java", "https://www.udacity.com", "https://www.sololearn.com", "https://www.replit.com", "https://www.stackoverflow.com",
-    "https://www.hackerrank.com", "https://www.codeforces.com", "https://www.topcoder.com", "https://www.leetcode.com", "https://www.spoj.com",
-    "https://www.codewars.com", "https://www.exercism.org", "https://www.rosettacode.org", "https://www.checkio.org", "https://www.kaggle.com",
-    "https://www.datacamp.com", "https://www.r-project.org", "https://www.towardsdatascience.com", "https://www.openai.com", "https://www.fast.ai",
-    "https://www.scipy.org", "https://www.numpy.org", "https://www.pandas.pydata.org", "https://www.tensorflow.org", "https://www.pytorch.org"
+        const websites = [
+"https://www.exploratorium.edu", "https://www.howstuffworks.com", "https://www.thisiscolossal.com", "https://www.worldhistory.org", "https://www.literature-map.com",
+"https://www.nasa.gov/kidsclub", "https://www.sporcle.com", "https://www.geoguessr.com", "https://www.triviawell.com", "https://www.khanacademy.org",
+"https://www.sciencenewsforstudents.org", "https://www.coursera.org", "https://www.futurelearn.com", "https://www.codecademy.com", "https://www.udemy.com",
+"https://www.duolingo.com", "https://www.memrise.com", "https://www.openlibrary.org", "https://www.gutenberg.org", "https://www.storynory.com",
+"https://www.typing.com", "https://www.keybr.com", "https://www.10fastfingers.com", "https://www.typelit.io", "https://www.mathplayground.com",
+"https://www.coolmathgames.com", "https://www.brainpop.com", "https://www.mathsisfun.com", "https://www.purplemath.com", "https://www.desmos.com",
+"https://www.wolframalpha.com", "https://www.nationalgeographic.com", "https://www.natgeokids.com", "https://www.sciencebuddies.org", "https://www.biointeractive.org",
+"https://www.smithsonianmag.com", "https://www.si.edu/kids", "https://www.ted.com/talks", "https://www.ted-ed.org", "https://www.tate.org.uk/kids",
+"https://www.music-map.com", "https://www.rainymood.com", "https://www.asoftmurmur.com", "https://www.noisli.com", "https://www.binauralbeatsmeditation.com",
+"https://www.radio.garden", "https://www.spacex.com", "https://www.solarsystemscope.com", "https://www.universetoday.com", "https://www.night-sky-maps.com",
+"https://www.constellation-guide.com", "https://www.deepai.org", "https://www.aiweirdness.com", "https://www.artbreeder.com", "https://www.runwayml.com",
+"https://www.chess.com", "https://www.lichess.org", "https://www.pychess.org", "https://www.scrabblewordfinder.org", "https://www.lexulous.com",
+"https://www.setgame.com", "https://www.cardgames.io", "https://www.worldcubeassociation.org", "https://www.speedcubing.com", "https://www.jigsawplanet.com",
+"https://www.puzzling.stackexchange.com", "https://www.logic-puzzles.org", "https://www.mastermindboardgame.com", "https://www.brainzilla.com", "https://www.rebus.club",
+"https://www.mentalfloss.com/amazingfactgenerator", "https://www.boredpanda.com", "https://www.todayifoundout.com", "https://www.reddit.com/r/interestingasfuck", "https://www.reddit.com/r/mildlyinteresting",
+"https://www.giphy.com", "https://www.thispersondoesnotexist.com", "https://www.quickdraw.withgoogle.com", "https://www.ai-art-generator.com", "https://www.wordle-game.org",
+"https://www.quordle.com", "https://www.nytimes.com/games/wordle/index.html", "https://www.phrazle.co", "https://www.crosswordlabs.com", "https://www.kryss.com",
+"https://www.merriam-webster.com/word-games", "https://www.thesaurus.com", "https://www.dictionary.com", "https://www.etymonline.com", "https://www.goodreads.com",
+"https://www.bookbub.com", "https://www.whatshouldireadnext.com", "https://www.librarything.com", "https://www.nypl.org", "https://www.loc.gov",
+"https://www.virtualmuseum.ca", "https://www.metmuseum.org", "https://www.britishmuseum.org", "https://www.rijksmuseum.nl/en", "https://www.artsy.net",
+"https://www.moma.org", "https://www.wikiart.org", "https://www.nationalgallery.org.uk", "https://www.artic.edu", "https://www.artcyclopedia.com",
+"https://www.sandiegozoo.org/live-cams", "https://www.monterybayaquarium.org/animals/live-cams", "https://www.explore.org/livecams", "https://www.ocearch.org/tracker", "https://www.inaturalist.org",
+"https://www.birdwatchingdaily.com", "https://www.allaboutbirds.org", "https://www.ebird.org", "https://www.macaulaylibrary.org", "https://www.projectnoah.org",
+"https://www.instructables.com", "https://www.makezine.com", "https://www.howtodothings.com", "https://www.diy.org", "https://www.kidspot.com.au",
+"https://www.experimonkey.com", "https://www.stevespanglerscience.com", "https://www.sciencekids.co.nz", "https://www.kidscraftroom.com", "https://www.activityvillage.co.uk",
+"https://www.yourmechanic.com/article", "https://www.howacarworks.com", "https://www.carsguide.com.au", "https://www.cartalk.com", "https://www.thedrive.com",
+"https://www.realpython.com", "https://www.learnpython.org", "https://www.javascript.info", "https://www.w3schools.com", "https://www.mdn.dev",
+"https://www.codecademy.com/learn/learn-java", "https://www.udacity.com", "https://www.sololearn.com", "https://www.replit.com", "https://www.stackoverflow.com",
+"https://www.hackerrank.com", "https://www.codeforces.com", "https://www.topcoder.com", "https://www.leetcode.com", "https://www.spoj.com",
+"https://www.codewars.com", "https://www.exercism.org", "https://www.rosettacode.org", "https://www.checkio.org", "https://www.kaggle.com",
+"https://www.datacamp.com", "https://www.r-project.org", "https://www.towardsdatascience.com", "https://www.openai.com", "https://www.fast.ai",
+"https://www.scipy.org", "https://www.numpy.org", "https://www.pandas.pydata.org", "https://www.tensorflow.org", "https://www.pytorch.org"
         ];
 
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
+        let preloadedSite = "";
+
+        function preloadRandomSite() {
+            preloadedSite = websites[Math.floor(Math.random() * websites.length)];
+            const iframe = document.createElement("iframe");
+            iframe.style.display = "none";
+            iframe.src = preloadedSite;
+            document.body.appendChild(iframe);
         }
-
-        function getStoredData() {
-            let storedList = localStorage.getItem("shuffledWebsites");
-            let storedIndex = localStorage.getItem("websiteIndex");
-
-            if (storedList && storedIndex !== null) {
-                return { shuffledWebsites: JSON.parse(storedList), index: parseInt(storedIndex) };
-            } else {
-                return null;
-            }
-        }
-
-        function saveData() {
-            localStorage.setItem("shuffledWebsites", JSON.stringify(shuffledWebsites));
-            localStorage.setItem("websiteIndex", index);
-        }
-
-        function resetWebsiteList() {
-            shuffledWebsites = [...websites];
-            shuffleArray(shuffledWebsites);
-            index = 0;
-            saveData();
-        }
-
-        let storedData = getStoredData();
-        let shuffledWebsites = storedData ? storedData.shuffledWebsites : [];
-        let index = storedData ? storedData.index : 0;
-
-        if (shuffledWebsites.length === 0 || index >= shuffledWebsites.length) {
-            resetWebsiteList();
-        }
-
-        window.onload = function () {
-    openRandomSite(); // Load a site immediately when the page opens
-};
 
         function openRandomSite() {
-            if (index >= shuffledWebsites.length) {
-                resetWebsiteList();
-            }
-            document.getElementById("websiteFrame").src = shuffledWebsites[index];
-            index++;
-            saveData();
+            document.getElementById("websiteFrame").src = preloadedSite;
+            preloadRandomSite(); // Load the next site in advance
         }
 
         function changeTheme() {
@@ -177,6 +161,9 @@
             else if (theme === "blue") document.body.style.background = "#001f3f";
             else document.body.style.background = "black";
         }
+
+        // Preload first site on page load
+        preloadRandomSite();
     </script>
 </body>
 </html>
