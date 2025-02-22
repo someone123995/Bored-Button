@@ -158,6 +158,10 @@
             resetWebsiteList();
         }
 
+        window.onload = function () {
+    openRandomSite(); // Load a site immediately when the page opens
+};
+
         function openRandomSite() {
             if (index >= shuffledWebsites.length) {
                 resetWebsiteList();
